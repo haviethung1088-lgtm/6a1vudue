@@ -217,8 +217,8 @@ table.ranked tr:hover td{background:rgba(59,130,246,.07)}
   .kpi-grid{grid-template-columns:1fr 1fr}
   .kpi-val{font-size:19px}
   .cls6a1-stats{grid-template-columns:1fr 1fr}
-  table.ranked th:nth-child(4),table.ranked td:nth-child(4),
-  table.ranked th:nth-child(5),table.ranked td:nth-child(5){display:none}
+  table.ranked th:nth-child(5),table.ranked td:nth-child(5),
+  table.ranked th:nth-child(6),table.ranked td:nth-child(6){display:none}
   .badge6a1{font-size:8px;padding:1px 4px}
 }
 </style>
@@ -355,6 +355,7 @@ table.ranked tr:hover td{background:rgba(59,130,246,.07)}
       <table class="ranked">
         <thead>
           <tr>
+            <th style="width:32px">STT</th>
             <th style="width:36px">#</th>
             <th style="width:60px">SBD</th>
             <th>Họ và tên</th>
@@ -696,7 +697,7 @@ function renderList(){
   const maxAnh=Math.max(...DATA.map(d=>d.anh||0));
   const maxTotal=Math.max(...DATA.map(d=>d.total||0));
 
-  document.getElementById('rankBody').innerHTML=display.map(d=>{
+  document.getElementById('rankBody').innerHTML=display.map((d,i)=>{
     const gr=globalRankMap[d.sbd]||'?';
     const lr=localRankMap[d.sbd]||'?';
     const isMe=String(d.sbd)===String(CFG.sbd);
@@ -705,6 +706,7 @@ function renderList(){
     const rankDisplay = showLocal && lr!==gr ? `${rEl}<span style="font-size:10px;color:var(--t3);margin-left:2px">(${lr})</span>` : rEl;
     const rowCls=[isMe?'me':'',d.lop6a1?'cls6a1':''].filter(Boolean).join(' ');
     return `<tr class="${rowCls}">
+      <td style="text-align:center;color:var(--t3);font-size:11px">${i+1}</td>
       <td>${rankDisplay}</td>
       <td style="font-weight:600;color:${isMe?'var(--gold)':'var(--b)'}">${isMe?'⭐ ':''}${d.sbd}</td>
       <td style="font-size:12px">${d.ten||'—'}${d.lop6a1?'<span class="badge6a1">6A1</span>':''}</td>
